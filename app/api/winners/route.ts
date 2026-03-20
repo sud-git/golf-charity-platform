@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // API: GET winners, POST verify winner (admin)
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
