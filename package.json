@@ -50,7 +50,7 @@
     "@types/nodemailer": "^6.4.9"
   },
   "engines": {
-    "node": "18.18.0",
+    "node": "22.x",
     "npm": ">=9.0.0"
   }
 }
