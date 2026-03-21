@@ -4,6 +4,8 @@ import { loginSchema } from '@/lib/utils/validators';
 import { verifyPassword, createToken, createRefreshToken } from '@/lib/auth/token';
 import { createSuccessResponse, createErrorResponse, ErrorCodes } from '@/lib/utils/api-response';
 
+export const dynamic = 'force-dynamic';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
@@ -62,7 +64,8 @@ export async function POST(request: NextRequest) {
       .single();
 
     // Check if admin
-    const isAdmin = user.email === 'admin@golfcharity.app';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@golfcharity.app';
+    const isAdmin = user.email === adminEmail;
 
     // Create tokens
     const accessToken = createToken({

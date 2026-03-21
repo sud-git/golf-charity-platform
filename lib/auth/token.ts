@@ -4,8 +4,13 @@ import { jwtVerify, SignJWT } from 'jose';
 import { SessionPayload } from '@/types';
 import bcryptjs from 'bcryptjs';
 
+// Ensure NEXTAUTH_SECRET is set in production
+if (!process.env.NEXTAUTH_SECRET && process.env.NODE_ENV === 'production') {
+  throw new Error('NEXTAUTH_SECRET environment variable is required in production');
+}
+
 const secret = new TextEncoder().encode(
-  process.env.NEXTAUTH_SECRET || 'secret-change-me-in-production'
+  process.env.NEXTAUTH_SECRET || 'dev-secret-only-for-local-development'
 );
 
 // Hash password
