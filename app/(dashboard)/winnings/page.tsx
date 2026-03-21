@@ -62,7 +62,7 @@ export default function WinningsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatCard label="Total Won" value={formatCurrency(totalWon / 100)} color="success" />
+        <StatCard label="Total Won" value={formatCurrency(totalWon)} color="success" />
         <StatCard label="Verified Wins" value={verified.length.toString()} color="primary" />
         <StatCard label="Pending Review" value={pending.length.toString()} color="warning" />
       </div>

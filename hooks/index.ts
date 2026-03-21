@@ -1,7 +1,7 @@
 // hooks/useAuth.ts - Authentication hook
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User } from '@/types';
 
@@ -10,11 +10,14 @@ export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in
+    // Check if user is logged in (safe for SSR — only runs in browser)
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
+
+    setIsAuthenticated(!!accessToken);
 
     if (!accessToken || !userId) {
       setLoading(false);
@@ -26,18 +29,21 @@ export const useAuth = () => {
     setLoading(false);
   }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userId');
+    localStorage.removeItem('is-admin');
+    setIsAuthenticated(false);
+    setUser(null);
     router.push('/');
-  };
+  }, [router]);
 
   return {
     user,
     loading,
     error,
-    isAuthenticated: !!localStorage.getItem('accessToken'),
+    isAuthenticated,
     logout,
   };
 };

@@ -68,13 +68,13 @@ export async function POST(request: NextRequest) {
     const isAdmin = user.email === adminEmail;
 
     // Create tokens
-    const accessToken = createToken({
+    const accessToken = await createToken({
       userId: user.id,
       email: user.email,
       isAdmin,
     });
 
-    const refreshToken = createRefreshToken({
+    const refreshToken = await createRefreshToken({
       userId: user.id,
       email: user.email,
       isAdmin,
