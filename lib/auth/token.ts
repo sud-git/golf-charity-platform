@@ -4,11 +4,22 @@ import { jwtVerify, SignJWT } from 'jose';
 import { SessionPayload } from '@/types';
 import bcryptjs from 'bcryptjs';
 
-// NEXTAUTH_SECRET should be set in production via environment variables.
-// The fallback is only for local development — never use it in production.
-const secret = new TextEncoder().encode(
-  process.env.NEXTAUTH_SECRET || 'dev-secret-only-for-local-development'
-);
+// NEXTAUTH_SECRET MUST be set in production via environment variables
+const getSecret = () => {
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (!secret) {
+    // Only allow fallback in development
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('⚠️ Using fallback NEXTAUTH_SECRET for development only');
+      return 'dev-secret-only-for-local-development';
+    }
+    // Fail fast in production
+    throw new Error('NEXTAUTH_SECRET environment variable is required in production');
+  }
+  return secret;
+};
+
+const secret = new TextEncoder().encode(getSecret());
 
 // Hash password
 export async function hashPassword(password: string): Promise<string> {
