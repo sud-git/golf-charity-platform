@@ -1,8 +1,14 @@
-# Golf Charity Platform
+# ⛳ Golf Charity Platform
 
-> A modern, subscription-based platform that seamlessly integrates golf score tracking with charitable fundraising and prize draws. Designed for golf enthusiasts who want to engage with their community while supporting meaningful causes.
+> A modern, subscription-based platform that seamlessly integrates golf score tracking with charitable fundraising and monthly prize draws. Designed for golf enthusiasts who want to engage with their community while supporting meaningful causes.
 
-## Overview
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/Node.js-18%2B-brightgreen)](https://nodejs.org/)
+[![Next.js](https://img.shields.io/badge/Framework-Next.js%2014-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue)](https://www.typescriptlang.org/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-green)](#)
+
+## 🎯 Overview
 
 Golf Charity Platform is a full-stack, production-grade web application built with cutting-edge technology. It provides a complete ecosystem for golf enthusiasts to track their scores, participate in monthly prize draws, and directly contribute to charitable organizations of their choice.
 

@@ -1,0 +1,44 @@
+# Prettier Ignore Configuration
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Production Build
+.next/
+build/
+out/
+dist/
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.production.local
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Files that shouldn't be formatted
+*.md
+.gitignore
+vercel.json
+tsconfig.json
+package.json
