@@ -19,12 +19,5 @@
       "destination": "/admin/",
       "permanent": false
     }
-  ],
-  "functions": {
-    "api/**/*.{ts,tsx}": {
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
-  "crons": []
+  ]
 }
