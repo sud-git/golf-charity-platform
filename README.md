@@ -122,7 +122,7 @@ golf-charity-platform/
 │   │   ├── signup/page.tsx        # User registration interface
 │   │   └── reset-password/page.tsx# Password recovery flow
 │   │
-│   ├── (dashboard)/               # Protected User Dashboard (requires auth)
+│   ├── dashboard/               # Protected User Dashboard (requires auth)
 │   │   ├── layout.tsx             # Dashboard layout wrapper
 │   │   ├── scores/page.tsx        # Score tracking and management
 │   │   ├── draws/page.tsx         # Draw participation and history

@@ -1,4 +1,4 @@
-// app/(dashboard)/subscription/page.tsx
+// app/dashboard/subscription/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';

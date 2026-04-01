@@ -93,7 +93,7 @@ Bootstrap phase is **100% complete**. All foundational files created and ready f
 
 ## 📱 Phase 3: Dashboard Pages
 
-### User Dashboard (`/app/(dashboard)/`)
+### User Dashboard (`/app/dashboard/`)
 - [ ] `/scores/page.tsx` - Score management
   - Table of last 5 scores
   - Add score form (with validation)
