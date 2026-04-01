@@ -9,7 +9,6 @@
       "value": "production"
     }
   },
-  "envPrefix": "NEXT_PUBLIC_",
   "rewrites": [
     {
       "source": "/api/:path*",
