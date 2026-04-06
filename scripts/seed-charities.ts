@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server';
+/**
+ * Seed script to populate charities table with test data
+ * Run with: npx ts-node scripts/seed-charities.ts
+ */
+
 import { supabaseAdmin } from '@/lib/db/client';
 
-export const dynamic = 'force-dynamic';
-
-// Mock charities data for development when Supabase is unreachable
-const MOCK_CHARITIES = [
+const testCharities = [
   {
-    id: '1',
     name: 'Red Cross',
     description: 'International humanitarian organization providing disaster relief and medical assistance',
     slug: 'red-cross',
@@ -15,7 +15,6 @@ const MOCK_CHARITIES = [
     status: 'active',
   },
   {
-    id: '2',
     name: 'World Wildlife Fund',
     description: 'Conserving nature, wildlife, and natural resources globally',
     slug: 'wwf',
@@ -24,7 +23,6 @@ const MOCK_CHARITIES = [
     status: 'active',
   },
   {
-    id: '3',
     name: 'Doctors Without Borders',
     description: 'International medical humanitarian organization providing emergency aid',
     slug: 'doctors-without-borders',
@@ -33,7 +31,6 @@ const MOCK_CHARITIES = [
     status: 'active',
   },
   {
-    id: '4',
     name: 'Local Food Bank',
     description: 'Community-based food assistance and hunger relief program',
     slug: 'local-food-bank',
@@ -42,8 +39,7 @@ const MOCK_CHARITIES = [
     status: 'active',
   },
   {
-    id: '5',
-    name: 'Childrens Cancer Research Fund',
+    name: 'Children\'s Cancer Research Fund',
     description: 'Funding innovative research to combat childhood cancer',
     slug: 'childrens-cancer-fund',
     category: 'Healthcare',
@@ -51,7 +47,6 @@ const MOCK_CHARITIES = [
     status: 'active',
   },
   {
-    id: '6',
     name: 'Ocean Cleanup Initiative',
     description: 'Protecting oceans and marine life from plastic pollution',
     slug: 'ocean-cleanup',
@@ -61,34 +56,42 @@ const MOCK_CHARITIES = [
   },
 ];
 
-export async function GET() {
+async function seedCharities() {
   try {
-    const { data: charities, error } = await supabaseAdmin
-      .from('charities')
-      .select('*')
-      .eq('status', 'active')
-      .order('featured', { ascending: false })
-      .order('name');
+    console.log('🌱 Starting charity seed...');
 
-    // If there's an error or no data, use mock data
-    if (error || !charities || charities.length === 0) {
-      console.warn('Returning mock charities:', error?.message || 'No charities found');
-      return NextResponse.json({
-        success: true,
-        data: MOCK_CHARITIES,
-      });
+    // Check if charities already exist
+    const { data: existingCharities, error: fetchError } = await supabaseAdmin
+      .from('charities')
+      .select('id')
+      .limit(1);
+
+    if (fetchError) {
+      console.error('❌ Error checking existing charities:', fetchError);
+      return;
     }
 
-    return NextResponse.json({
-      success: true,
-      data: charities,
-    });
-  } catch (error: any) {
-    console.error('Charities fetch error:', error);
-    // Fall back to mock data
-    return NextResponse.json({
-      success: true,
-      data: MOCK_CHARITIES,
-    });
+    if (existingCharities && existingCharities.length > 0) {
+      console.log('⚠️  Charities already exist. Skipping seed.');
+      return;
+    }
+
+    // Insert charities
+    const { error: insertError } = await supabaseAdmin
+      .from('charities')
+      .insert(testCharities);
+
+    if (insertError) {
+      console.error('❌ Error seeding charities:', insertError);
+      return;
+    }
+
+    console.log('✅ Successfully seeded charities!');
+    console.log(`📊 Added ${testCharities.length} charities`);
+  } catch (error) {
+    console.error('❌ Seed error:', error);
+    process.exit(1);
   }
 }
+
+seedCharities();
